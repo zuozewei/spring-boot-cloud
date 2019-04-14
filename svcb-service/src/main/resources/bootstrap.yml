@@ -3,7 +3,9 @@ spring:
     name: svcb-service
   cloud:
     config:
-      uri: http://config:8888
+      discovery:
+        enabled: true
+        service-id: config
       fail-fast: true
       username: user
       password: ${CONFIG_SERVER_PASSWORD:password}
@@ -12,3 +14,28 @@ spring:
         max-interval: 10000
         multiplier: 2
         max-attempts: 10
+  security:
+    user:
+      name: user
+      password: password
+
+eureka:
+  instance:
+    prefer-ip-address: true
+    metadata-map:
+      user.name: ${spring.security.user.name}
+      user.password: ${spring.security.user.password}
+  client:
+    service-url:
+      defaultZone: http://user:${REGISTRY_SERVER_PASSWORD:password}@registry:8761/eureka/
+
+security:
+  oauth2:
+    resource:
+      user-info-uri: http://${authserver.hostname}:${authserver.port}${authserver.contextPath}/
+    client:
+      clientId: svcb-service
+      clientSecret: ${spring.security.user.password}
+      accessTokenUri: http://${authserver.hostname}:${authserver.port}${authserver.contextPath}/oauth/token
+      grant-type: client_credentials
+      scope: server

@@ -1,35 +1,79 @@
-version: '2'
+version: '3'
 services:
   rabbitmq:
       image: rabbitmq:3-management
       restart: always
       ports:
+        - 5672:5672
         - 15673:15672
   registry:
     image: spring-boot-cloud/registry
+    restart: on-failure
     ports:
       - "8761:8761"
   config:
     image: spring-boot-cloud/config
+    restart: on-failure
     ports:
       - "8888:8888"
+#   config 从本地读取配置文件
+    volumes:
+      - "./config-repo:/config-repo"
+    depends_on:
+      - registry
+      - rabbitmq
   monitor:
     image: spring-boot-cloud/monitor
+    restart: on-failure
     ports:
       - "8040:8040"
+    depends_on:
+      - registry
   zipkin:
-    image: spring-boot-cloud/zipkin
+    image: openzipkin/zipkin:2.10.4
+    restart: on-failure
     ports:
       - "9411:9411"
   gateway:
     image: spring-boot-cloud/gateway
+    restart: on-failure
     ports:
       - "8060:8060"
+    depends_on:
+      - rabbitmq
+      - registry
+      - config
+      - monitor
+      - zipkin
   auth-service:
     image: spring-boot-cloud/auth-service
+    restart: on-failure
     ports:
       - "5000:5000"
+    depends_on:
+      - rabbitmq
+      - registry
+      - config
+      - monitor
+      - zipkin
+      - gateway
   svca-service:
     image: spring-boot-cloud/svca-service
+    restart: on-failure
+    depends_on:
+      - rabbitmq
+      - registry
+      - config
+      - monitor
+      - zipkin
+      - gateway
   svcb-service:
     image: spring-boot-cloud/svcb-service
+    restart: on-failure
+    depends_on:
+      - rabbitmq
+      - registry
+      - config
+      - monitor
+      - zipkin
+      - gateway

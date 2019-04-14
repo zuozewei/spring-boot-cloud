@@ -1,6 +1,8 @@
 # 基于 Spring Cloud 的微服务架构
 
-本项目是一个基于 Spring Boot、Spring Cloud、Spring Oauth2 和 Spring Cloud Netflix 等框架构建的微服务项目。
+​	**[原项目](https://github.com/zhangxd1989/spring-boot-cloud)似乎已经不更新了, 本项目在其基础上升级了 Spring Boot ( 2.0.6.RELEASE ) 和 Spring Cloud ( Finchley.SR2 ), 并对相关的框架进行了修改适配**
+
+​	**后续有空会考虑更新加入一些新的技术**
 
 # 技术栈
 * Spring boot - 微服务的入门级微框架，用来简化 Spring 应用的初始搭建以及开发过程。
@@ -11,7 +13,6 @@
 * Spring Cloud Bus - 事件、消息总线，用于在集群（例如，配置变化事件）中传播状态变化，可与 Spring Cloud Config 联合实现热部署。
 * Spring Cloud Sleuth - 日志收集工具包，封装了 Dapper 和 log-based 追踪以及 Zipkin 和 HTrace 操作，为 SpringCloud 应用实现了一种分布式追踪解决方案。
 * Ribbon - 提供云端负载均衡，有多种负载均衡策略可供选择，可配合服务发现和断路器使用。
-* Turbine - Turbine 是聚合服务器发送事件流数据的一个工具，用来监控集群下 hystrix 的 metrics 情况。
 * Spring Cloud Stream - Spring 数据流操作开发包，封装了与 Redis、Rabbit、Kafka 等发送接收消息。
 * Feign - Feign 是一种声明式、模板化的 HTTP 客户端。
 * Spring Cloud OAuth2 - 基于 Spring Security 和 OAuth2 的安全工具包，为你的应用程序添加安全控制。
@@ -60,8 +61,6 @@
 ![monitor](/screenshots/monitor1.jpg)
 ### 应用注册历史
 ![monitor](/screenshots/monitor2.jpg)
-### Turbine Hystrix面板
-![monitor](/screenshots/monitor3.jpg)
 ### 应用信息、健康状况、垃圾回收等详情
 ![monitor](/screenshots/monitor4.jpg)
 ### 计数器
@@ -70,16 +69,12 @@
 ![monitor](/screenshots/monitor6.jpg)
 ### 管理 Logback 日志级别
 ![monitor](/screenshots/monitor7.jpg)
-### 查看并使用 JMX
-![monitor](/screenshots/monitor8.jpg)
 ### 查看线程
-![monitor](/screenshots/monitor9.jpg)
+![monitor](/screenshots/monitor8.jpg)
 ### 认证历史
 ![monitor](/screenshots/monitor10.jpg)
 ### 查看 Http 请求轨迹
 ![monitor](/screenshots/monitor11.jpg)
-### Hystrix 面板
-![monitor](/screenshots/monitor12.jpg)
 ## 链路跟踪
 访问 http://localhost:9411/ 默认账号 admin，密码 admin
 ### 控制面板
@@ -113,7 +108,7 @@ curl -i -H "Authorization: Bearer eac56504-c4f0-4706-b72e-3dc3acdf45e9" http://l
 ```
 返回如下数据：
 ```
-svca-service (172.18.0.8:8080)===>name:zhangxd
+svca-service (172.18.0.8:8080)===>name:chanson
 svcb-service (172.18.0.2:8070)===>Say Hello
 ```
 3. 使用 access token 访问 service b 接口
@@ -140,5 +135,5 @@ curl -X POST -vu client:secret http://localhost:8060/uaa/oauth/token -H "Accept:
 ```
 5. 刷新配置
 ```
-curl -X POST -vu user:password http://localhost:8888/bus/refresh
+curl -X POST -vu user:password http://localhost:8888/actuator/bus-refresh
 ```

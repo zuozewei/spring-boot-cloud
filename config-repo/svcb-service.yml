@@ -1,22 +1,38 @@
+spring:
+  cloud:
+    bus:
+      trace:
+        enabled: true
+      enabled: true
+
+  rabbitmq:
+    host: rabbitmq
+
 server:
   port: 8070
-  
+
 msg: Hello
 
-eureka:
-  instance:
-    metadata-map:
-      user.name: ${security.user.name}
-      user.password: ${security.user.password}
+
+authserver:
+  hostname: auth-service
+  port: 5000
+  contextPath: /uaa
+
 
 security:
-  user:
-    name: user
-    password: password
   oauth2:
+    resource:
+      user-info-uri: http://${authserver.hostname}:${authserver.port}${authserver.contextPath}/current
     client:
       clientId: svcb-service
-      clientSecret: ${security.user.password}
+      clientSecret: ${spring.security.user.password}
       accessTokenUri: http://${authserver.hostname}:${authserver.port}${authserver.contextPath}/oauth/token
       grant-type: client_credentials
       scope: server
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'

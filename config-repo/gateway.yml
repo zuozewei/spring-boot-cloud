@@ -2,8 +2,10 @@ server:
   port: 8060
 
 management:
-  security:
-    enabled: false
+  endpoints:
+    web:
+      exposure:
+        include: '*'
 
 hystrix:
   command:
