@@ -17,8 +17,8 @@ services:
     ports:
       - "8888:8888"
 #   config 从本地读取配置文件
-    volumes:
-      - "./config-repo:/config-repo"
+#    volumes:
+#      - "./config-repo:/config-repo"
     depends_on:
       - registry
       - rabbitmq
