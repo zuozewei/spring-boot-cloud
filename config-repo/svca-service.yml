@@ -31,10 +31,6 @@ security:
       grant-type: client_credentials
       scope: server
 
-ribbon:
-  ReadTimeout: 5000
-  ConnectTimeout: 5000
-
 authserver:
   hostname: auth-service
   port: 5000
@@ -45,3 +41,22 @@ management:
     web:
       exposure:
         include: '*'
+  endpoint:
+    health:
+      show-details: ALWAYS
+
+feign:
+  hystrix:
+    enabled: true
+    
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 20000
+
+ribbon:
+  ReadTimeout: 10000
+  ConnectTimeout: 10000

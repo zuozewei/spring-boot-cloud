@@ -5,11 +5,11 @@ logging:
 server:
   port: 8040
 
-# tag::configuration-eureka[]
+
 eureka:
   client:
-    # 表示eureka client间隔多久去拉取服务注册信息，默认为30秒
-    registryFetchIntervalSeconds: 5
+    healthcheck:
+      enabled: true
     service-url:
       defaultZone: http://user:${REGISTRY_SERVER_PASSWORD:password}@registry:8761/eureka/
   instance:
@@ -32,8 +32,6 @@ management:
   endpoint:
     health:
       show-details: ALWAYS
-# end::configuration-eureka[]
-
 
 spring:
   security:
