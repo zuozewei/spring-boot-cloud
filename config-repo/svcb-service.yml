@@ -8,6 +8,18 @@ spring:
   rabbitmq:
     host: rabbitmq
 
+  sleuth:
+    sampler:
+      probability: 1.0 # 将采样比例设置为 1.0，也就是全部都需要。默认是 0.1
+    integration:
+      enabled: false
+    scheduled:
+      skip-pattern: "^org.*HystrixStreamTask$"
+
+  zipkin:
+    base-url: http://zipkin:9411 # 指定了 Zipkin 服务器的地址
+    discoveryClientEnabled: true
+
 server:
   port: 8070
 
