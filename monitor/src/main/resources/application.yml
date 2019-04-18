@@ -8,8 +8,6 @@ server:
 
 eureka:
   client:
-    healthcheck:
-      enabled: true
     service-url:
       defaultZone: http://user:${REGISTRY_SERVER_PASSWORD:password}@registry:8761/eureka/
   instance:

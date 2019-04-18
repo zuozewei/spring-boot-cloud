@@ -36,7 +36,5 @@ eureka:
       user.name: ${spring.security.user.name}
       user.password: ${spring.security.user.password}
   client:
-    healthcheck:
-      enabled: true
     service-url:
       defaultZone: http://user:${REGISTRY_SERVER_PASSWORD:password}@registry:8761/eureka/
