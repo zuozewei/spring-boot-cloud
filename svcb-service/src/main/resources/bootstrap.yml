@@ -28,14 +28,3 @@ eureka:
   client:
     service-url:
       defaultZone: http://user:${REGISTRY_SERVER_PASSWORD:password}@registry:8761/eureka/
-
-security:
-  oauth2:
-    resource:
-      user-info-uri: http://${authserver.hostname}:${authserver.port}${authserver.contextPath}/
-    client:
-      clientId: svcb-service
-      clientSecret: ${spring.security.user.password}
-      accessTokenUri: http://${authserver.hostname}:${authserver.port}${authserver.contextPath}/oauth/token
-      grant-type: client_credentials
-      scope: server

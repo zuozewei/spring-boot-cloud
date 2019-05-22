@@ -13,22 +13,22 @@ eureka:
       defaultZone: http://user:${REGISTRY_SERVER_PASSWORD:password}@registry:8761/eureka/
 
 spring:
-  profiles:
-    active: native
   cloud:
-    config:
-      server:
-        git:
-          uri: https://github.com/chenchensheng/spring-boot-cloud
-          search-paths: config-repo
-    #        读取本地文件时采用以下配置
-    #        native:
-    #          search-locations: file:/config-repo
-    #        bootstrap: true
     bus:
       enabled: true
       trace:
         enabled: true
+    config:
+      server:
+        git:
+          uri: https://github.com/chenchensheng/spring-boot-cloud.git
+          search-paths: config-repo
+    #        读取本地文件时采用以下配置
+#            native:
+#              search-locations: file:/config-repo
+#            bootstrap: true
+#  profiles:
+#    active: native
 
   rabbitmq:
     host: rabbitmq
