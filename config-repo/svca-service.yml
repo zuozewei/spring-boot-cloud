@@ -21,7 +21,7 @@ spring:
     discoveryClientEnabled: true
 
 server:
-  port: 8090
+  port: 8050
 
 name: chanson
 
